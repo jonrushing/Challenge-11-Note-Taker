@@ -1,10 +1,10 @@
 const notes = require('express').Router();
 const path = require('path');
-const fs = require('fs')
+const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
 
-notes.post('/api/notes', (req, res) => {
+notes.post('/', (req, res) => {
     const {title, text} = req.body;
 
     if (title && text) {
@@ -12,7 +12,7 @@ notes.post('/api/notes', (req, res) => {
         const newNote = {
             title,
             text,
-            note_id: uuidv4(),
+            id: uuidv4(),
         };
 
         fs.readFile('./db/db.json', 'utf-8', (err, data) => {
@@ -35,7 +35,7 @@ notes.post('/api/notes', (req, res) => {
         };
         res.status(201).json(response);
     } else {
-        res.status(500).json('Error in posting note')
+        res.status(500).json('Error in posting note');
     }
 });
 
