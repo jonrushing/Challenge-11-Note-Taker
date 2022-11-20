@@ -1,23 +1,10 @@
-const express = require('express');
+const notes = require('express').Router();
 const path = require('path');
 const fs = require('fs')
 const { v4: uuidv4 } = require('uuid');
 
 
-const app = express();
-const PORT = process.env.port || 3001;
-
-app.use(express.json());
-app.use(express.urlencoded({ extened: true}));
-
-app.use(express.static('public'));
-
-//app.get('/', (req, res) => res.send('navigates to /notes'));
-
-// app.get('/notes', (req, res) => 
-//     res.sendFile(path.join(__dirname, 'public/notes.html'))
-//     );
-app.post('/api/notes', (req, res) => {
+notes.post('/api/notes', (req, res) => {
     const {title, text} = req.body;
 
     if (title && text) {
@@ -52,6 +39,4 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-
-app.listen(PORT, () =>
-console.log(`example app listing at http://localhost:${PORT}`))
+module.exports = notes;
