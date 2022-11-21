@@ -2,7 +2,9 @@ const notes = require('express').Router();
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const db = require('../db/db.json')
 
+notes.get('/', (req, res) => res.json(db));
 
 notes.post('/', (req, res) => {
     const {title, text} = req.body;
