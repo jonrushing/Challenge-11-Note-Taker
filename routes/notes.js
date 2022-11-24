@@ -1,5 +1,4 @@
 const notes = require('express').Router();
-const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const db = require('../db/db.json')
@@ -8,7 +7,7 @@ notes.get('/', (req, res) => res.json(db));
 
 notes.post('/', (req, res) => {
     const {title, text} = req.body;
-
+    console.log(title, text);
     if (title && text) {
 
         const newNote = {
@@ -22,13 +21,14 @@ notes.post('/', (req, res) => {
                 console.log(err);
             } else {
                 const parsedNote = JSON.parse(data);
-
+                    console.log(parsedNote);
                 parsedNote.push(newNote);
-
-                fs.writeFile('./db/db.json', JSON.stringify(parsedNote, null, 4),
+                    console.log(`Updated note ${parsedNote}`)
+                fs.writeFile('./db/db.json', JSON.stringify(parsedNote),
                 (writeErr) =>
                     writeErr ? console.error(writeErr) : console.info('Successfully updated notes!'));
             }
+            
         });
 
         const response = {
@@ -39,6 +39,8 @@ notes.post('/', (req, res) => {
     } else {
         res.status(500).json('Error in posting note');
     }
+
+    
 });
 
 module.exports = notes;
