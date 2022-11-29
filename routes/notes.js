@@ -3,7 +3,17 @@ const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const db = require('../db/db.json')
 
-notes.get('/', (req, res) => res.json(db));
+notes.get('/', (req, res) => {
+    fs.readFile('./db/db.json', 'utf-8', (err, data) => {
+        if (err) {         
+            console.log(err);
+        } else {
+            console.log(data)
+            res.json(JSON.parse(data));
+        }
+        
+    });
+});
 
 notes.post('/', (req, res) => {
     const {title, text} = req.body;
@@ -39,8 +49,6 @@ notes.post('/', (req, res) => {
     } else {
         res.status(500).json('Error in posting note');
     }
-
-    
 });
 
 module.exports = notes;
