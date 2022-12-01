@@ -6,7 +6,6 @@
   - [License](#license)
   - [Usage](#usage)
   - [Contribution](#contributing)
-  - [Testing](#tests)
   - [Questions](#questions)
   
   ## Description <a name="description"></a>
